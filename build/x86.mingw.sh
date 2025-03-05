@@ -1,5 +1,5 @@
 # Install dependency
-pacman -S --noconfirm --needed autoconf automake libtool pkgconf mingw-w64-i686-gcc mingw-w64-i686-pkg-config make cmake mingw-w64-i686-libogg
+pacman -S --noconfirm --needed autoconf automake libtool pkgconf mingw-w64-i686-gcc mingw-w64-i686-pkg-config make cmake mingw-w64-i686-libogg tree
 
 # Make directory
 mkdir -p ./bin
@@ -19,7 +19,7 @@ else
     make install
   cp ./libsodium-win32/bin/libsodium-26.dll ../bin/sodium-win32-x86.dll
 fi
-tree > ./bin/sodium.tree.log
+tree > ./bin/sodium.tree.x86.log
 cd ..
 
 # Build opus
@@ -37,7 +37,7 @@ else
     make install
   cp ./.libs/libopus-0.dll ../bin/opus-win32-x86.dll
 fi
-tree > ./bin/opus.tree.log
+tree > ./bin/opus.tree.x86.log
 cd ..
 
 # Build vorbis
@@ -52,7 +52,7 @@ else
   make
   cp ./lib/.libs/libvorbis-0.dll ../bin/vorbis-win32-x86.dll
 fi
-tree > ./bin/vorbis.tree.log
+tree > ./bin/vorbis.tree.x86.log
 cd ..
 
 # Build fdk-aac
@@ -67,5 +67,5 @@ else
   make
   cp ./.libs/libfdk-aac-2.dll ../bin/fdk-aac-win32-x86.dll
 fi
-tree > ./bin/fdk-aac.tree.log
+tree > ./bin/fdk-aac.tree.x86.log
 cd ..
