@@ -7,9 +7,9 @@ touch ./bin/sodium.tree.x64.log
 
 # Build sodium
 cd ./libsodium
-if [ -e "./libsodium-win32/bin/libsodium-26.dll" ]; then
+if [ -e "./mingw32/bin/libsodium-26.dll" ]; then
   echo "[LunaStream Builder]: Copy sodium binary"
-  cp ./libsodium-win32/bin/libsodium-26.dll ../bin/sodium-win32-x86.dll
+  cp ./mingw32/bin/libsodium-26.dll ../bin/sodium-win32-x86.dll
 else
   echo "[LunaStream Builder]: Build sodium binary"
   ./autogen.sh
@@ -18,7 +18,7 @@ else
     make &&
     make check &&
     make install
-  cp ./libsodium-win32/bin/libsodium-26.dll ../bin/sodium-win32-x86.dll
+  cp ./mingw32/bin/libsodium-26.dll ../bin/sodium-win32-x86.dll
 fi
 tree > ./bin/sodium.tree.x64.log
 cd ..
