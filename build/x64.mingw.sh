@@ -10,6 +10,7 @@ echo "[LunaStream Builder]: Build sodium binary"
 ./autogen.sh
 ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
 make
+make install
 cp ./mingw64/bin/libsodium-26.dll ../bin/sodium-win32-x64.dll
 tree .
 cd ..
