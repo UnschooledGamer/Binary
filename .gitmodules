@@ -1,0 +1,13 @@
+[submodule "libsodium"]
+	path = libsodium
+	url = https://github.com/jedisct1/libsodium
+	branch = stable
+[submodule "libopus"]
+	path = libopus
+	url = https://github.com/xiph/opus
+[submodule "libvorbis"]
+	path = libvorbis
+	url = https://github.com/xiph/vorbis
+[submodule "libfdkaac"]
+	path = libfdkaac
+	url = https://github.com/mstorsjo/fdk-aac
