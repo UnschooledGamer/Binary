@@ -12,7 +12,11 @@ if [ -e "./libsodium-win64/bin/libsodium-26.dll" ]; then
 else
   echo "[LunaStream Builder]: Build sodium binary"
   ./autogen.sh
-  ./dist-build/msys2-win64.sh
+  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared --disable-dependency-tracking &&
+    make clean &&
+    make &&
+    make check &&
+    make install
   cp ./libsodium-win64/bin/libsodium-26.dll ../bin/sodium-win32-x64.dll
 fi
 cd ..
@@ -25,7 +29,7 @@ if [ -e "./.libs/libopus-0.dll" ]; then
 else
   echo "[LunaStream Builder]: Build opus binary"
   ./autogen.sh
-  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
+  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared --disable-dependency-tracking &&
     make clean &&
     make &&
     make check &&
@@ -42,7 +46,7 @@ if [ -e "./lib/.libs/libvorbis-0.dll" ]; then
 else
   echo "[LunaStream Builder]: Build vorbis binary"
   ./autogen.sh
-  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared --without-ogg &&
+  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared --disable-dependency-tracking &&
   make
   cp ./lib/.libs/libvorbis-0.dll ../bin/vorbis-win32-x64.dll
 fi
