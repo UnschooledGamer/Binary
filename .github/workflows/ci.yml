@@ -22,14 +22,9 @@ jobs:
         uses: msys2/setup-msys2@v2
         with:
           msystem: ${{ matrix.sys }}
-          install: >-
-            base-devel
-            mingw-w64-${{ matrix.sys }}-gcc
-            git
-            make
 
       - name: Build Binary
-        shell: msys2 {0}
+        shell: ${{ matrix.sys }} {0}
         run: "./build/${{ matrix.arch }}.mingw.sh"
 
       - name: Publish Artifacts
