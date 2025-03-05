@@ -24,7 +24,7 @@ jobs:
           msystem: ${{ matrix.sys }}
 
       - name: Build Binary
-        shell: ${{ matrix.sys }} {0}
+        shell: msys {0}
         run: "./build/${{ matrix.arch }}.mingw.sh"
 
       - name: Publish Artifacts
