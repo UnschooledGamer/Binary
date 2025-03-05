@@ -15,4 +15,4 @@ cp ./mingw32/bin/libsodium-26.dll ../bin/sodium-win32-x86.dll
 tree .
 cd ..
 
-ls -al /mingw32 
+tree /mingw32 
