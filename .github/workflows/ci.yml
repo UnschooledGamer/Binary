@@ -6,29 +6,35 @@ on:
 
 jobs:
   build-mingw:
-    runs-on: windows-latest
     strategy:
       matrix:
         arch: [x86, x64]
         sys: [mingw32, mingw64]
 
+    runs-on: windows-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup msys
+      - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
           msystem: ${{ matrix.sys }}
+          install: >-
+            base-devel
+            mingw-w64-${{ matrix.sys }}-gcc
+            git
+            make
 
       - name: Build Binary
-        shell: ${{ matrix.sys }}
+        shell: msys2 {0}
         run: "./build/${{ matrix.arch }}.mingw.sh"
 
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: windows-${{ matrix.sys }}
+          name: windows-${{ matrix.sys }}-${{ matrix.arch }}
           path: bin/
 
   publish:
