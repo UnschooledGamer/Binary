@@ -9,9 +9,8 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        include:
-          - { sys: mingw64, env: x64 }
-          - { sys: mingw32, env: x86 }
+        arch: [x86, x64]
+        sys: [mingw32, mingw64]
 
     steps:
       - name: Checkout
@@ -24,7 +23,7 @@ jobs:
 
       - name: Build Binary
         shell: ${{ matrix.sys }} {0}
-        run: "./build/${{ matrix.env }}.mingw.sh"
+        run: "./build/${{ matrix.arch }}.mingw.sh"
 
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
