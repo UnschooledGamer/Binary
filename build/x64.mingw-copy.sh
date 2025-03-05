@@ -16,4 +16,4 @@ tree .
 cd ..
 
 echo "/mingw32 files"
-ls -al /mingw32 
+tree /mingw32 
