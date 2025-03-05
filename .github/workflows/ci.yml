@@ -1,0 +1,44 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build-mingw:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - { sys: mingw64, env: x64 }
+          - { sys: mingw32, env: x86 }
+
+    steps:
+      - name: Setup msys
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{matrix.sys}}
+
+      - name: Build Binary
+      - shell: ${{matrix.sys}} {0}
+        run: "./build/${{matrix.env}}.mingw.sh"
+
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{matrix.sys}}
+          path: bin/
+
+  publish:
+    needs: [build-mingw]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: download
+          merge-multiple: true
+
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-dump
+          path: download
