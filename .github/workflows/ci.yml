@@ -8,8 +8,9 @@ jobs:
   build-mingw:
     strategy:
       matrix:
-        arch: [x86, x64]
-        sys: [mingw32, mingw64]
+        include:
+          - { sys: mingw64, arch: x64 }
+          - { sys: mingw32, arch: x86 }
 
     runs-on: windows-latest
 
