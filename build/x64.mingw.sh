@@ -1,6 +1,8 @@
 # Install dependency
 pacman -S --noconfirm --needed autoconf automake libtool pkgconf mingw-w64-x86_64-gcc mingw-w64-x86_64-pkg-config make mingw-w64-x86_64-libogg tree
 
+# export PREFIX 
+export PREFIX="$(pwd)/mingw64" 
 # Make directory
 mkdir bin
 
@@ -8,7 +10,7 @@ mkdir bin
 cd ./libsodium
 echo "[LunaStream Builder]: Build sodium binary"
 ./autogen.sh
-./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
+./configure --host=x86_64-w64-mingw32 --prefix="$PREFIX" --disable-static --enable-shared &&
 make
 make install
 cp ./mingw64/bin/libsodium-26.dll ../bin/sodium-win32-x64.dll
