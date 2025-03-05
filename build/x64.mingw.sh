@@ -3,6 +3,7 @@ pacman -S --noconfirm --needed autoconf automake libtool pkgconf mingw-w64-x86_6
 
 # export PREFIX 
 export PREFIX="$(pwd)/mingw64" 
+
 # Make directory
 mkdir bin
 
