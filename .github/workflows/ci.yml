@@ -14,13 +14,16 @@ jobs:
           - { sys: mingw32, env: x86 }
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup msys
         uses: msys2/setup-msys2@v2
         with:
           msystem: ${{matrix.sys}}
 
       - name: Build Binary
-      - shell: ${{matrix.sys}} {0}
+        shell: ${{matrix.sys}} {0}
         run: "./build/${{matrix.env}}.mingw.sh"
 
       - name: Publish Artifacts
