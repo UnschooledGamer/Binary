@@ -1,5 +1,5 @@
 # Install dependency
-pacman -S --noconfirm --needed autoconf automake libtool pkgconf mingw-w64-x86_64-gcc mingw-w64-x86_64-pkg-config
+pacman -S --noconfirm --needed autoconf automake libtool pkgconf mingw-w64-x86_64-gcc mingw-w64-x86_64-pkg-config make
 
 # Make directory
 mkdir -p ./bin
@@ -12,7 +12,7 @@ if [ -e "./libsodium-win64/bin/libsodium-26.dll" ]; then
 else
   echo "[LunaStream Builder]: Build sodium binary"
   ./autogen.sh
-  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared --disable-dependency-tracking &&
+  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
     make clean &&
     make &&
     make check &&
@@ -29,7 +29,7 @@ if [ -e "./.libs/libopus-0.dll" ]; then
 else
   echo "[LunaStream Builder]: Build opus binary"
   ./autogen.sh
-  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared --disable-dependency-tracking &&
+  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
     make clean &&
     make &&
     make check &&
@@ -46,7 +46,7 @@ if [ -e "./lib/.libs/libvorbis-0.dll" ]; then
 else
   echo "[LunaStream Builder]: Build vorbis binary"
   ./autogen.sh
-  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared --disable-dependency-tracking &&
+  ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
   make
   cp ./lib/.libs/libvorbis-0.dll ../bin/vorbis-win32-x64.dll
 fi
