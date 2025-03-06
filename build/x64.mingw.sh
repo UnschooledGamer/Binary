@@ -7,6 +7,24 @@ export PREFIX="$(pwd)/mingw64"
 # Make directory
 mkdir bin
 
+# Build vorbis
+cd libvorbis
+echo "[LunaStream Builder]: Build vorbis binary"
+./autogen.sh
+./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
+make
+cp ./lib/.libs/libvorbis-0.dll ../bin/vorbis-win32-x64.dll
+cd ..
+
+# Build mpg123
+cd libmpg123
+echo "[LunaStream Builder]: Build libmpg123 binary"
+./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
+cd src/libmpg123 &&
+make
+cp ./.libs/libmpg123-0.dll ../../../bin/mpg123-win32-x64.dll
+cd ..
+
 # Build sodium
 cd ./libsodium
 echo "[LunaStream Builder]: Build sodium binary"
@@ -27,15 +45,6 @@ echo "[LunaStream Builder]: Build opus binary"
 ./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
 make
 cp ./.libs/libopus-0.dll ../bin/opus-win32-x64.dll
-cd ..
-
-# Build vorbis
-cd libvorbis
-echo "[LunaStream Builder]: Build vorbis binary"
-./autogen.sh
-./configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-static --enable-shared &&
-make
-cp ./lib/.libs/libvorbis-0.dll ../bin/vorbis-win32-x64.dll
 cd ..
 
 # Build fdk-aac
