@@ -43,7 +43,7 @@ CFLAGS="-D_FILE_OFFSET_BITS=64" ./configure &&
 cd src/libmpg123 &&
 make
 cp ./.libs/libmpg123-0.dll ../../../bin/mpg123-win32-x64.dll
-cd ../../
+cd ../../../
 
 # Build fdk-aac
 cd libfdkaac
