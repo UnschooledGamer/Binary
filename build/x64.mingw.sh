@@ -14,7 +14,7 @@ echo "[LunaStream Builder]: Build sodium binary"
 ./configure --host=x86_64-w64-mingw32 --prefix="$PREFIX" --disable-static --enable-shared &&
 make
 make install
-cp ./mingw64/bin/libsodium-26.dll ../bin/sodium-win32-x64.dll 
+cp $PREFEX/bin/libsodium-26.dll ../bin/sodium-win32-x64.dll 
 echo "$PREFIX" 
 tree "$PREFIX" 
 tree .
