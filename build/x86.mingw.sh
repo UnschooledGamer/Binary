@@ -14,8 +14,8 @@ echo "[LunaStream Builder]: Build sodium binary"
 ./configure --host=i686-w64-mingw32 --prefix="$PREFIX" --disable-static --enable-shared &&
 make
 make install
-cp ./mingw32/bin/libsodium-26.dll ../bin/sodium-win32-x86.dll
-tree .
+cp "$PREFIX/bin/libsodium-26.dll" ../bin/sodium-win32-x86.dll
+tree "$PREFIX" 
 cd ..
 
 # Build opus
