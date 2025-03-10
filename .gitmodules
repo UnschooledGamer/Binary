@@ -14,3 +14,6 @@
 [submodule "libmpg123"]
 	path = libmpg123
 	url = https://github.com/gypified/libmpg123
+[submodule "libflac"]
+	path = libflac
+	url = https://github.com/xiph/flac
