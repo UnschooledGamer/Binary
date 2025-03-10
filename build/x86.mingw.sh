@@ -36,15 +36,6 @@ make
 cp ./lib/.libs/libvorbis-0.dll ../bin/vorbis-win32-x86.dll
 cd ..
 
-# Build mpg123
-cd libmpg123
-echo "[LunaStream Builder]: Build libmpg123 binary"
-CFLAGS="-D_FILE_OFFSET_BITS=64" ./configure &&
-cd src/libmpg123 &&
-make
-cp ./.libs/libmpg123-0.dll ../../../bin/mpg123-win32-x64.dll
-cd ../../../
-
 # Build fdk-aac
 cd libfdkaac
 echo "[LunaStream Builder]: Build fdk-aac binary"
@@ -52,4 +43,12 @@ echo "[LunaStream Builder]: Build fdk-aac binary"
 ./configure --host=i686-w64-mingw32 --prefix=/mingw32 --disable-static --enable-shared &&
 make
 cp ./.libs/libfdk-aac-2.dll ../bin/fdk-aac-win32-x86.dll
+cd ..
+
+# Build mpg123
+cd libmpg123
+echo "[LunaStream Builder]: Build libmpg123 binary"
+./makedll.sh --host=i686-w64-mingw32 --prefix=/mingw32 --disable-static --enable-shared
+tree .
+cp ./libmpg123-0.dll ../bin/mpg123-win32-x86.dll
 cd ..
