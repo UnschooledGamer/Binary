@@ -1,7 +1,7 @@
 name: Opus Worker CI
 
 on:
-  workflow_dispatch:  # Enables manual triggering
+  repository_dispatch:
 
 jobs:
   build-windows:
