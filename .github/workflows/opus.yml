@@ -1,0 +1,41 @@
+name: Opus Worker CI
+
+on:
+  workflow_dispatch:  # Enables manual triggering
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - { arch: x64, sys: MINGW64, prefix: mingw64, carch: x86_64 }
+          - { arch: x86, sys: MINGW32, prefix: mingw32, carch: i686 }
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          name: xiph/opus
+          submodules: 'true'
+
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{ matrix.sys }}
+
+      - name: Autogen configure file
+        run: |
+          set MSYSTEM=${{ matrix.sys }}
+          msys2 -c './autogen.sh'
+
+      - name: Build Binary
+        run: |
+          set MSYSTEM=${{ matrix.sys }}
+          msys2 -c './configure --host=${{ matrix.carch }}-w64-mingw32 --prefix=/${{ matrix.prefix }} --disable-static --enable-shared && make'
+
+      - name: Publish Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: opus-${{ matrix.sys }}-${{ matrix.carch }}
+          path: bin/

@@ -1,0 +1,56 @@
+name: Build Binary and release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  trigger-workers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Opus Worker
+        run: |
+          curl -X POST -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/workflows/opus.yml/dispatches \
+          -d '{"ref": "main"}'
+
+  wait-for-results:
+    needs: trigger-workers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Worker Artifacts
+        run: |
+          echo "Checking for artifacts..."
+          for i in {1..30}; do
+            ARTIFACTS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/artifacts" | jq -r '.artifacts[].name')
+            
+            if echo "$ARTIFACTS" | grep -q "worker-output"; then
+              echo "Artifacts found!"
+              exit 0
+            fi
+
+            echo "Artifacts not found. Retrying in 30 seconds..."
+            sleep 30
+          done
+          echo "Timeout waiting for artifacts!"
+          exit 1
+
+  collect-and-release:
+    needs: wait-for-results
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Worker Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: worker-output
+          path: artifacts/
+
+      - name: Display Collected Artifacts
+        run: ls -l artifacts/
+
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-dump
+          path: artifacts/
