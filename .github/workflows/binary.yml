@@ -6,6 +6,10 @@ on:
 jobs:
   trigger-workers:
     runs-on: ubuntu-latest
+    permissions: 
+      contents: read
+      actions: write
+      workflows: write
     steps:
       - name: Trigger Opus Worker
         run: |
