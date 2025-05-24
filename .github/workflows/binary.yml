@@ -14,7 +14,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            /repos/OWNER/REPO/actions/workflows/opus/dispatches \
+            /repos/${{ github.repository }}/actions/workflows/opus/dispatches \
             -f "ref=main"
 
   wait-for-results:
