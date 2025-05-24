@@ -9,7 +9,7 @@ jobs:
     permissions: 
       contents: read
       actions: write
-      workflows: write
+      id-token: write
     steps:
       - name: Trigger Opus Worker
         run: |
