@@ -2,6 +2,7 @@ name: Opus Worker CI
 
 on:
   repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   build-windows:
